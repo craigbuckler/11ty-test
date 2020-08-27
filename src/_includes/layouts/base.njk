@@ -1,0 +1,18 @@
+{% include "./partials/_htmlhead.njk" %}
+
+  {% block content %}
+    <h1>{% if titlePage %}{{ titlePage }}{% else %}{{ title }}{% endif %}</h1>
+
+    {{ content | safe }}
+
+  {% endblock %}
+
+{% include "./partials/_taglist.njk" %}
+
+{% include "./partials/_footer.njk" %}
+
+<nav>
+  {% navlist collections.all | eleventyNavigation, page, 2 %}
+</nav>
+
+{% include "./partials/_htmlfoot.njk" %}

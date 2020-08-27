@@ -1,0 +1,48 @@
+// PostCSS CSS processing
+/*
+No longer used.
+This 11ty module used PostCSS to read the root file and return a result for writing.
+It works, but is limited to a single root CSS file.
+
+The process now uses a template to output an initial CSS file and an 11ty transform to process it using PostCSS.
+*/
+
+/* global dev */
+
+const
+  cssFile = 'css/main.css',
+  fs = require('fs').promises,
+  postcss = require('postcss'),
+  postcssPlugins = [
+    require('postcss-advanced-variables'),
+    require('postcss-nested'),
+    require('cssnano')
+  ],
+  postcssOptions = {
+    from: 'src/' + cssFile,
+    map: dev ? { inline: true } : false
+  };
+
+
+module.exports = class {
+
+  data() {
+
+    return {
+      permalink: cssFile,
+      eleventyExcludeFromCollections: true
+    };
+
+  }
+
+  // PostCSS processing
+  async render() {
+
+    const
+      css = (await fs.readFile(postcssOptions.from)).toString(),
+      out = await postcss(postcssPlugins).process(css, postcssOptions);
+
+    return out.css;
+
+  }
+};

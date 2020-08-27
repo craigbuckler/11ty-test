@@ -1,0 +1,21 @@
+---
+priority: 0.2
+---
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+
+  <h1>{{ title }}</h1>
+
+  {{ content | safe }}
+
+  <ul>
+    {% set taglist = collections[ tag ] %}
+    {% for post in taglist | reverse %}
+      <li><a href="{{ post.url | url }}">{{ post.data.title }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <p><a href="{{ '/tag/' | url }}">All tags</a></p>
+
+{% endblock %}

@@ -1,0 +1,4 @@
+{
+  "layout": "layouts/base.njk",
+  "priority": 1.0
+}

@@ -1,0 +1,20 @@
+// colors
+$color-fore: #222;
+$color-back: #fff;
+
+// comment
+
+/* reset styles */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  color: $color-fore;
+  background-color: $color-back;
+
+  &.dark {
+    color: $color-back;
+    background-color: $color-fore;
+  }
+}

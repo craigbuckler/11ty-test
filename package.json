@@ -1,0 +1,47 @@
+{
+  "name": "11ty-test",
+  "version": "1.0.0",
+  "description": "static site built with 11ty",
+  "main": "index.js",
+  "meta": {
+    "name": "OptimalWorks.net",
+    "description": "An example site built with 11ty",
+    "url": "https://www.optimalworks.net",
+    "imagecdn": "https://www.optimalworks.net/imagecdn/",
+    "author": "Craig Buckler",
+    "language": "en-GB",
+    "changefreq": "monthly"
+  },
+  "scripts": {
+    "start": "rm -rf build && clear && ELEVENTY_ENV=development npx eleventy --serve",
+    "production": "rm -rf build && npx eleventy",
+    "debug": "DEBUG=Eleventy* npx @11ty/eleventy",
+    "clean": "rm -rf build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "11ty",
+    "website",
+    "test"
+  ],
+  "author": "Craig Buckler",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^0.11.0",
+    "@11ty/eleventy-navigation": "^0.1.6",
+    "@11ty/eleventy-plugin-rss": "^1.0.9",
+    "cssnano": "^4.1.10",
+    "html-minifier": "^4.0.0",
+    "image-size": "^0.8.3",
+    "imagemin": "^7.0.1",
+    "imagemin-mozjpeg": "^9.0.0",
+    "imagemin-pngquant": "^9.0.0",
+    "imagemin-svgo": "^8.0.0",
+    "inline-source": "^7.2.0",
+    "postcss": "^7.0.32",
+    "postcss-advanced-variables": "^3.0.1",
+    "postcss-nested": "^4.2.3",
+    "postcss-scss": "^2.1.1"
+  },
+  "dependencies": {}
+}

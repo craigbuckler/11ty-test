@@ -1,0 +1,11 @@
+{% if tags %}
+
+<p>tags:</p>
+
+<ul>
+  {% for tag in tags %}
+    <li><a href="/tag/{{ tag | lower }}">{{ tag }}</a></li>
+  {% endfor %}
+</ul>
+
+{% endif %}

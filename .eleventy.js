@@ -35,7 +35,7 @@ module.exports = config => {
   // inline assets
   config.addTransform('inline', require('./lib/transforms/inline'));
 
-  // inline assets
+  // CSS processing
   config.addTransform('postcss', require('./lib/transforms/postcss'));
 
   // minify HTML
@@ -98,6 +98,7 @@ module.exports = config => {
   /* --- WATCH TARGETS --- */
 
   config.addWatchTarget('./src/css/');
+  config.addWatchTarget('./src/js/');
 
 
   // 11ty defaults

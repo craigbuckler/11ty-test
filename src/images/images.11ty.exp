@@ -1,0 +1,122 @@
+// minify newer images
+
+/*
+newFiles() recursively extracts all files in directory.
+They will not exist in a compare directory or the source file is newer.
+
+Unfortunately, imagemin writes all files to the root destination folder.
+One option is to call minification libraries directly.
+This could copy the original if the optimized version is larger.
+*/
+
+const
+  dirIn = './src/images',
+  dirOut = './build/images',
+  imageTypes = ['.jpg', '.jpeg', '.png', '.gif', '.svg'],
+
+  fs = require('fs').promises,
+  path = require('path'),
+
+  imagemin = require('imagemin'),
+  plugins = [
+    require('imagemin-mozjpeg')(),
+    require('imagemin-pngquant')({ strip: true }),
+    require('imagemin-svgo')()
+  ];
+
+module.exports = class {
+
+  data() {
+
+    return {
+      permalink: false,
+      eleventyExcludeFromCollections: true
+    };
+
+  }
+
+  // process all files
+  async render() {
+
+    let
+      dest = path.resolve(dirOut),
+      images = await newFiles( path.resolve(dirIn), dest );
+
+    await imagemin(images, {
+      destination: dest,
+      plugins
+    });
+
+    return true;
+
+  }
+};
+
+
+// returns a list of new images to process
+async function newFiles(dirSrc, dirDst) {
+
+  console.log('reading dir', dirSrc);
+
+  let
+    files = [],
+    fComp = [],
+    subDir = [],
+    fl = await fs.readdir(dirSrc, { withFileTypes: true });
+
+  fl.forEach(file => {
+
+    let
+      name = file.name,
+      pathSrc = dirSrc + path.sep + name,
+      pathDst = dirDst + path.sep + name;
+
+    if (file.isFile() && imageTypes.some(type => name.endsWith(type))) {
+      files.push( pathSrc );
+      fComp.push( isNewer(pathSrc, pathDst) );
+    }
+
+    if (file.isDirectory()) {
+      subDir.push( newFiles(pathSrc, pathDst) );
+    }
+
+  });
+
+  if (fComp.length) {
+    let newer = (await Promise.all( fComp )).flat();
+    files = files.filter( (f, i) => newer[i] );
+  }
+
+  if (subDir.length) {
+    let subfiles = await Promise.all(subDir);
+    files = files.concat( subfiles.flat() );
+  }
+
+  return files;
+
+}
+
+
+// returns true if:
+// file2 does not exist or
+// file2 is older than file1
+async function isNewer(file1, file2) {
+
+  try {
+
+    // file exists?
+    await fs.access(file2);
+
+    // check dates
+    let stat = await Promise.all([
+      fs.lstat(file1),
+      fs.lstat(file2)
+    ]);
+
+    return stat[0].mtimeMs > stat[1].mtimeMs;
+  }
+  catch (e){}
+
+  return true;
+
+}

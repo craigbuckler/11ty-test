@@ -11,9 +11,9 @@ priority: 0.2
 
   <ul>
     {% set taglist = collections[ tag ] %}
-    {% for post in taglist | reverse %}
+    {% for post in taglist | reverse %}{% if post.data.draft != true %}
       <li><a href="{{ post.url | url }}">{{ post.data.title }}</a></li>
-    {% endfor %}
+    {% endif %}{% endfor %}
   </ul>
 
   <p><a href="{{ '/tag/' | url }}">All tags</a></p>

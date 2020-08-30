@@ -41,7 +41,9 @@
     "postcss": "^7.0.32",
     "postcss-advanced-variables": "^3.0.1",
     "postcss-nested": "^4.2.3",
-    "postcss-scss": "^2.1.1"
+    "postcss-scss": "^2.1.1",
+    "rollup": "^2.26.8",
+    "rollup-plugin-terser": "^7.0.1"
   },
   "dependencies": {}
 }

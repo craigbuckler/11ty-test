@@ -31,6 +31,13 @@ To do:
 
 ## Notes
 
-Build system seems to work well, although a full build occurs whenever a change happens, i.e. modifying CSS will rebuild HTML files.
+Build system works well, although a full build occurs whenever a change happens, i.e. modifying CSS will rebuild HTML files.
 
-A Gulp process is likely to be faster, although 11ty
+A Gulp process is likely to be faster, although 11ty on its own is OK for smaller sites.
+
+To do:
+
+- JS build process
+- set as dependencies rather than dev
+- test on Windows (no `rm`)
+- deployment?

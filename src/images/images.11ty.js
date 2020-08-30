@@ -18,7 +18,7 @@ module.exports = class {
 
   }
 
-  // PostCSS processing
+  // process all files
   async render() {
 
     await imagemin(['src/images/**/*', '!src/images/**/*.js'], {
